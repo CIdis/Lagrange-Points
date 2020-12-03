@@ -1,0 +1,13 @@
+def correct_CoM(vec0, M1, M2, M3):
+    marr = np.array([M1, M2, M3])
+    rarr = np.array([vec0[6*i:6*i+3] for i in range(3)])
+    varr = np.array([vec0[6*i+3:6*i+6] for i in range(3)])
+    
+    rcom = np.dot(marr, rarr) / np.sum(marr)
+    vcom = np.dot(marr, varr) / np.sum(marr)
+    
+    rarr = rarr - rcom
+    varr = varr - vcom
+    
+    vec0 = np.array([rarr[0], varr[0], rarr[1], varr[1], rarr[2], varr[2]]).flatten()
+    return vec0
