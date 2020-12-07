@@ -1,0 +1,27 @@
+def anim_orbits(vec, name):
+    x1, y1 = vec[:,0], vec[:,1]
+    x2, y2 = vec[:,6], vec[:,7]
+    x3, y3 = vec[:,12], vec[:,13]
+    
+    fig = plt.figure(figsize = (20, 10))
+    camera = Camera(fig)
+
+    plt.xlabel('x (AU)')
+    plt.ylabel('y (AU)')
+    plt.gca().set_aspect('equal')
+    plt.grid()
+
+    for t_index in range(len(time)):
+        #
+        plt.plot(x1[t_index], y1[t_index], 'o', color='r')
+        plt.plot(x2[t_index], y2[t_index], 'o', color='b')
+        plt.plot(x3[t_index], y3[t_index], 'o', color='g')
+        #
+        plt.plot(x1[:t_index+1], y1[:t_index+1], color='r')
+        plt.plot(x2[:t_index+1], y2[:t_index+1], color='b')
+        plt.plot(x3[:t_index+1], y3[:t_index+1], color='g')
+        plt.plot(0, 0, '*', color='black')#, plt.legend(loc = 2)
+        camera.snap()
+        
+    animation = camera.animate()
+    animation.save('{}.gif'.format(name), fps = 10, dpi = 300)
